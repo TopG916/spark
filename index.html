@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+   <title>spark game</title>
+   <style>
+      html {
+         height: 100%;
+         width: 100%;
+      }
+      body {
+         margin: 0;
+         padding: 0;
+         background-color: #212121;
+      }
+      #game {
+         background-color: white;
+      }
+   </style>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <script>
+    document.addEventListener("keydown", function(e) {
+      keydown = e.key
+      console.log(e.key)
+    });
+    let ctx = document.getElementById("game").getContext("2d")
+    let swidth = window.innerWidth-1
+    let sheight = window.innerHeight-5
+    ctx.canvas.width = swidth;
+    ctx.canvas.height = sheight;
+
+    async function evalWait(secs, eval) {
+       await wait(secs*1000);
+       eval(eval);
+    }
+
+    function wait(time) {
+       return new Promise(resolve => {
+          setTimeout(resolve, time);
+       });
+    }
+
+    function drawText(text, x, y, ts) {
+       ctx.font = `${ts}px Courier`;
+       ctx.fillText(text, x, y);
+    }
+    function drawCircle(x, y, color, size) {
+       ctx.beginPath();
+       ctx.arc(x * size, y * size, size, 0, 2 * Math.PI);
+       ctx.fillStyle = color;
+       ctx.fill();
+       ctx.closePath();
+    }
+    function clear() {
+       ctx.clearRect(0, 0, game.width, game.height);
+    }
+    // size 36: width is 20, height is 20
+    let keydown = null
+    drawText("Press any key to start", (swidth/2)-260, (sheight/2)+20, 36);
+    
+  </script>
+   
+</body>
+</html>
